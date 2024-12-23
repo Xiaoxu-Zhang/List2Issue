@@ -6,6 +6,7 @@
 """
 import os
 from fire import Fire
+import json
 
 msg_list = [
     "## title\\n",
@@ -19,7 +20,7 @@ msg_list = [
 ]
 
 def convert_to_markdown_content(msg_lst):
-    return "\\n".join(msg_lst)
+    return json.dumps("\\n".join(msg_lst))[1:-1]
 
 class TestCreate:
     def __init__(self):
