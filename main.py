@@ -9,7 +9,7 @@ from fire import Fire
 import json
 
 msg_list = [
-    "## title\\n",
+    "## title",
     "body",
     "| Index | Year | Title | Venue | CitedBy |",
     "|-------|------|-------|-------|---------|",
@@ -20,7 +20,7 @@ msg_list = [
 ]
 
 def convert_to_markdown_content(msg_lst):
-    return json.dumps("\\n".join(msg_lst))[1:-1]
+    return "\\n".join(msg_lst).replace(' \u2026', '')
 
 class TestCreate:
     def __init__(self):
@@ -29,12 +29,13 @@ class TestCreate:
     @staticmethod
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
+        content = content.replace("'", "")
         if mode == 'prod':
             env_file = os.getenv("GITHUB_ENV")
         else:
             env_file = "preview"
         with open(env_file, "a") as f:
-            f.write(f"MSG=\"{content}\"\n")
+            f.write(f"MSG=\"{content}\"")
 
 if __name__ == '__main__':
     Fire(TestCreate)
