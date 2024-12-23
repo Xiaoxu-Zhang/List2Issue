@@ -5,11 +5,10 @@
 @Date   :2024/12/23
 """
 import os
-
 from fire import Fire
 
 msg_list = [
-    "## title\\n",
+    "## title\n",
     "body",
     "| Index | Year | Title | Venue | CitedBy |",
     "|-------|------|-------|-------|---------|",
@@ -20,8 +19,7 @@ msg_list = [
 ]
 
 def convert_to_markdown_content(msg_lst):
-    return "\\n".join(msg_lst)
-
+    return "\n".join(msg_lst)
 
 class TestCreate:
     def __init__(self):
@@ -31,12 +29,13 @@ class TestCreate:
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
         if mode == 'prod':
+            # 使用 echo 命令来设置环境变量，避免手动写入文件
+            content = content.replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
             env_file = os.getenv("GITHUB_ENV")
         else:
             env_file = "preview"
         with open(env_file, "a") as f:
-            f.write(f"MSG={content}\n")
-
+            f.write(f"MSG=\"{content}\"\n")
 
 if __name__ == '__main__':
     Fire(TestCreate)
