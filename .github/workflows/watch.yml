@@ -31,22 +31,13 @@ jobs:
         run: |
           python main.py run --mode ${{ env.MODE }}
 
-      - name: Setup var
-        id: vars
-        run: |
-          content=$(cat mail.md)
-          echo "content<<EOF" >> $GITHUB_OUTPUT
-          echo "$content" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
       - name: Setup GIT user
         uses: fregante/setup-git-user@v1
 
       - name: Create an issue for msg
-        if: ${{ steps.vars.outputs.content != '' }}
+        if: ${{ env.MSG != '' }}
         uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MSG: ${{ steps.vars.outputs.content }}
         with:
           filename: .github/issue-template.md

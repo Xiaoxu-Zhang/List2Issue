@@ -29,14 +29,12 @@ class TestCreate:
     @staticmethod
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
-        with open("mail.md", "w") as f:
-            f.writelines(content)
-        # if mode == 'prod':
-        #     env_file = os.getenv("GITHUB_ENV")
-        # else:
-        #     env_file = "preview"
-        # with open(env_file, "a") as f:
-        #     f.write(f"MSG=\"{content}\"")
+        if mode == 'prod':
+            env_file = os.getenv("GITHUB_ENV")
+        else:
+            env_file = "preview"
+        with open(env_file, "a") as f:
+            f.write(f"MSG=EOF<<{content}EOF")
 
 if __name__ == '__main__':
     Fire(TestCreate)
