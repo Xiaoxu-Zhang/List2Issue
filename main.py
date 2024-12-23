@@ -9,8 +9,8 @@ from fire import Fire
 import json
 
 msg_list = [
-    "## title",
-    "body",
+    "## title\n",
+    "body\n",
     "| Index | Year | Title | Venue | CitedBy |",
     "|-------|------|-------|-------|---------|",
     "| [100](https://ieeexplore.ieee.org/abstract/document/10711878/) | 2024 | Neural network-based knowledge transfer for multitask optimization | IEEE Transactions on … | 4 |",
@@ -20,10 +20,7 @@ msg_list = [
 ]
 
 def convert_to_markdown_content(msg_lst):
-    return "\\n".join(msg_lst).replace(' \u2026', '')
-
-def escape_markdown_characters(content):
-    return content.replace("'", "'\\''").replace("(", "\\(").replace(")", "\\)")
+    return "\n".join(msg_lst)
 
 class TestCreate:
     def __init__(self):
@@ -32,13 +29,14 @@ class TestCreate:
     @staticmethod
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
-        content = escape_markdown_characters(content)
-        if mode == 'prod':
-            env_file = os.getenv("GITHUB_ENV")
-        else:
-            env_file = "preview"
-        with open(env_file, "a") as f:
-            f.write(f"MSG=\"{content}\"")
+        with open("mail.md", "w") as f:
+            f.writelines(content)
+        # if mode == 'prod':
+        #     env_file = os.getenv("GITHUB_ENV")
+        # else:
+        #     env_file = "preview"
+        # with open(env_file, "a") as f:
+        #     f.write(f"MSG=\"{content}\"")
 
 if __name__ == '__main__':
     Fire(TestCreate)
