@@ -42,7 +42,7 @@ jobs:
             content="${content//$'\n'/'%0A'}"
             content="${content//$'\r'/'%0D'}"
             echo "content is ${content}"
-            echo "content=$content" >> $GITHUB_ENV
+            echo content=\"$content\" >> $GITHUB_ENV
           fi
 
       - name: Setup GIT user
