@@ -29,8 +29,6 @@ class TestCreate:
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
         if mode == 'prod':
-            # 使用 echo 命令来设置环境变量，避免手动写入文件
-            content = content.replace('%', '%25').replace('\n', '%0A').replace('\r', '%0D')
             env_file = os.getenv("GITHUB_ENV")
         else:
             env_file = "preview"
