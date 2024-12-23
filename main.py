@@ -34,7 +34,7 @@ class TestCreate:
         else:
             env_file = "preview"
         with open(env_file, "a") as f:
-            f.write(f"MSG=EOF<<{content}EOF")
+            f.write(f"MSG<<EOF\n{content}\nEOF")
 
 if __name__ == '__main__':
     Fire(TestCreate)
