@@ -22,6 +22,9 @@ msg_list = [
 def convert_to_markdown_content(msg_lst):
     return "\\n".join(msg_lst).replace(' \u2026', '')
 
+def escape_markdown_characters(content):
+    return content.replace("'", "'\\''").replace("(", "\\(").replace(")", "\\)")
+
 class TestCreate:
     def __init__(self):
         pass
@@ -29,7 +32,7 @@ class TestCreate:
     @staticmethod
     def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
-        content = content.replace("'", "")
+        content = escape_markdown_characters(content)
         if mode == 'prod':
             env_file = os.getenv("GITHUB_ENV")
         else:
@@ -38,4 +41,4 @@ class TestCreate:
             f.write(f"MSG=\"{content}\"")
 
 if __name__ == '__main__':
-    Fire(TestCreate)
+    Fire(TestCreate).run()
