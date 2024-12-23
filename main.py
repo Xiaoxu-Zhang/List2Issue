@@ -20,7 +20,7 @@ msg_list = [
 ]
 
 def convert_to_markdown_content(msg_lst):
-    return "\n".join(msg_lst)
+    return "\\n".join(msg_lst)
 
 
 class TestCreate:
