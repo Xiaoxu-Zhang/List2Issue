@@ -42,14 +42,14 @@ jobs:
       - name: Setup var
         id: vars
         run: |
-          content=${{ env.MSG }}
+          content="${{ env.MSG }}"
           if [ -z "$content" ]; then
             echo "MSG is empty"
           else
             content="${content//'%'/'%25'}"
             content="${content//$'\n'/'%0A'}"
             content="${content//$'\r'/'%0D'}"
-            echo "content=$content" >> $GITHUB_OUTPUT
+            echo "content=$content" >> $GITHUB_ENV
           fi
       # ============================================
       # TODO [√] 更新仓库数据
@@ -58,10 +58,10 @@ jobs:
         uses: fregante/setup-git-user@v1
 
       - name: Create an issue for msg
-        if: ${{ steps.vars.outputs.content != '' }}
+        if: ${{ env.content != '' }}
         uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MSG: ${{ steps.vars.outputs.content }}
+          MSG: ${{ env.content }}
         with:
           filename: .github/issue-template.md
