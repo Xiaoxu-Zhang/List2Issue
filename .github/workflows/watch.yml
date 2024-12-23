@@ -39,7 +39,6 @@ jobs:
       - name: Run main
         run: |
           python main.py run --mode ${{ env.MODE }}
-
       - name: Setup var
         id: vars
         run: |
@@ -47,9 +46,6 @@ jobs:
           if [ -z "$content" ]; then
             echo "MSG is empty"
           else
-#             content="${content//'%'/'%25'}"
-#             content="${content//$'\n'/'%0A'}"
-#             content="${content//$'\r'/'%0D'}"
             echo "content=$content" >> $GITHUB_OUTPUT
           fi
       # ============================================
