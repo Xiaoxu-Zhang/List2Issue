@@ -9,8 +9,8 @@ import os
 from fire import Fire
 
 msg_list = [
-    "## title\n",
-    "content",
+    "## title\\n",
+    "body",
     "| Index | Year | Title | Venue | CitedBy |",
     "|-------|------|-------|-------|---------|",
     "| [100](https://ieeexplore.ieee.org/abstract/document/10711878/) | 2024 | Neural network-based knowledge transfer for multitask optimization | IEEE Transactions on … | 4 |",
@@ -35,7 +35,7 @@ class TestCreate:
         else:
             env_file = "preview"
         with open(env_file, "a") as f:
-            f.write(f"MSG=\"{content}\"\n")
+            f.write(f"MSG={content}\n")
 
 
 if __name__ == '__main__':
