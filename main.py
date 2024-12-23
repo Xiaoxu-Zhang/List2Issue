@@ -28,9 +28,12 @@ class TestCreate:
         pass
 
     @staticmethod
-    def run():
+    def run(mode='dev'):
         content = convert_to_markdown_content(msg_list)
-        env_file = os.getenv("GITHUB_ENV")
+        if mode == 'prod':
+            env_file = os.getenv("GITHUB_ENV")
+        else:
+            env_file = "preview"
         with open(env_file, "a") as f:
             f.write(f"MSG=\"{content}\"\n")
 
