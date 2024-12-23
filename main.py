@@ -41,4 +41,4 @@ class TestCreate:
             f.write(f"MSG=\"{content}\"")
 
 if __name__ == '__main__':
-    Fire(TestCreate).run()
+    Fire(TestCreate)
