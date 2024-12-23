@@ -34,7 +34,10 @@ jobs:
       - name: Setup var
         id: vars
         run: |
-            echo "content=$(cat mail.md)" >> "$GITHUB_OUTPUT"
+          content=$(cat mail.md)
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$content" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Setup GIT user
         uses: fregante/setup-git-user@v1
