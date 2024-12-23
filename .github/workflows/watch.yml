@@ -34,16 +34,7 @@ jobs:
       - name: Setup var
         id: vars
         run: |
-          content="${{ env.MSG }}"
-          if [ -z "$content" ]; then
-            echo "MSG is empty"
-          else
-            content="${content//'%'/'%25'}"
-            content="${content//$'\n'/'%0A'}"
-            content="${content//$'\r'/'%0D'}"
-            echo "content is ${content}"
             echo content="$(cat mail.md)" >> $GITHUB_ENV
-          fi
 
       - name: Setup GIT user
         uses: fregante/setup-git-user@v1
